@@ -1,8 +1,10 @@
 package com.devsuperior.dsmeta.services;
 
-import java.util.List;
+import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,16 +14,19 @@ import com.devsuperior.dsmeta.repositories.SaleRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
-@RequiredArgsConstructor
 public class SaleService {
     
     @Autowired
-    private final SaleRepository saleRepository;
+    private SaleRepository saleRepository;
 
     @Transactional
-    public List<Sale> findSales() {
+    public Page<Sale> findSales(String minDate, String maxDate, Pageable pageable) {
 	
-	return saleRepository.findAll();
+	LocalDate min = LocalDate.parse(minDate);
+	LocalDate max = LocalDate.parse(maxDate);
+	
+	
+	return saleRepository.findSales(min, max, pageable);
     }
     
     
