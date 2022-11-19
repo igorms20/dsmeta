@@ -22,13 +22,12 @@ public class SaleService {
     @Transactional
     public Page<Sale> findSales(String minDate, String maxDate, Pageable pageable) {
 
-        LocalDate today = LocalDate.ofInstant(Instant.now(), ZoneId.systemDefault());
+	LocalDate today = LocalDate.ofInstant(Instant.now(), ZoneId.systemDefault());
 
-        LocalDate min = maxDate.equals("") ? today.minusDays(365) : LocalDate.parse(minDate);
-        LocalDate max = maxDate.equals("") ? today : LocalDate.parse(maxDate);
+	LocalDate min = maxDate.equals("") ? today.minusDays(365) : LocalDate.parse(minDate);
+	LocalDate max = maxDate.equals("") ? today : LocalDate.parse(maxDate);
 
-        return saleRepository.findSales(min, max, pageable);
+	return saleRepository.findSales(min, max, pageable);
     }
-
 
 }
